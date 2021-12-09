@@ -1,9 +1,5 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import {useState,useEffect} from "react";
 import { Grid, GridColumn,GridPageChangeEvent } from "@progress/kendo-react-grid";
-import products from "./products.json";
-import TableHome from "./TableHome";
-import {useEffect} from "react"
 import ManagerService from "../services/ManagerService";
 interface PageState {
     skip: number;
@@ -13,16 +9,13 @@ interface PageState {
   const initialDataState: PageState = { skip: 0, take: 10 };
 
 const ManagerHome=()=>{
-  const [data, setData] = React.useState<any[]>([])
-  const [page, setPage] = React.useState<PageState>(initialDataState);
+  const [data, setData] = useState<any[]>([])
+  const [page, setPage] = useState<PageState>(initialDataState);
   useEffect(() => {
-        
     ManagerService.getManager("faizal")
     .then(response => {
       setData(response)
     })
- 
-
 }, [])
   
    
@@ -38,6 +31,7 @@ const ManagerHome=()=>{
              take={page.take}
              total={data.length}
              onPageChange={pageChange}
+             pageable={true}
         >
         <GridColumn field="EmployeeId" title="Employee Id" width="250px" />
         <GridColumn field="Name" title="Name" width="250px" />

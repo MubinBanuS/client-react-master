@@ -10,22 +10,25 @@ interface PageState {
 const initialDataState: PageState = { skip: 0, take: 10 };
 type WfmInfo = {
     EmployeeId: number;
-    Manager: number;
+    Manager: string;
     reqDate: string;
-    requestmessage: number;
+    requestmessage: string;
     wfm_manager: string;
 }
+const initialState:WfmInfo={EmployeeId:0,Manager:"",reqDate:"",requestmessage:"",wfm_manager:""}
 const WFMHome = ({ userData, wfmData, getWfmData }: any) => {
+
     const [page, setPage] = useState<PageState>(initialDataState);
     const [showModal, setShow] = useState(false);
-    const [EmployeeId, setEmployeeId] = useState(0);
+    //const [EmployeeId, setEmployeeId] = useState(0);
+    const [RowData, setRowData] = useState<WfmInfo>(initialState);
     useEffect(() => {
         getWfmData(userData)
     }, []
     )
     const handleClose = () => setShow(false);
     const handleShow = (Id: any) => {
-        setEmployeeId(Id);
+        //setEmployeeId(Id);
         setShow(true);
     }
     const pageChange = (event: GridPageChangeEvent) => {
@@ -53,7 +56,42 @@ const WFMHome = ({ userData, wfmData, getWfmData }: any) => {
             <GridColumn field="Approve Request" title="" cell={MyCustomCell} width="332px" />
         </Grid>
 
-        <AcceptLock />
+        <Modal show={showModal} onHide={handleClose} id="approveLock">
+            <Modal.Header>
+                <Modal.Title>Soft Lock Request Confirmation</Modal.Title>
+                <span className="fa fa-times" onClick={handleClose}></span>
+            </Modal.Header>
+            <Modal.Body>
+            <p className="StatusMsg">Status Update for Request Lock</p>
+                <div>
+                    <label className="mb-0">Employee ID</label><span>{RowData.EmployeeId}</span>
+                </div>
+                <div>
+                    <label className="mb-0">Requestee</label><span>{RowData.Manager}</span>
+                </div>
+                <div>
+                    <label className="mb-0">Employee Manager</label><span>{RowData.wfm_manager}</span>
+                </div>
+                <div>
+                    <label className="mb-0">Request Description</label><span>{RowData.requestmessage}</span>
+                </div>
+                <div>
+                    <label className="mb-0">Status</label>
+                    <select name="" id="">
+                        <option value="Update">Update</option>
+                        <option value="Reject">Reject</option>
+                    </select>
+                </div>     
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                  Save Changes
+                </Button>
+            </Modal.Footer>
+      </Modal>
 
 
     </>)

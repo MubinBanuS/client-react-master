@@ -52,25 +52,19 @@ console.log(username)
       yield put({type:"FAILURE"})
   }
 }
-const getWfmData = (username,password) => {
-  return axios({ method: 'get', url: 'http://localhost:8000/employees/wfm/'+username, headers: { 'Authorization': 'Bearer '+password } })
-  .then(response => response.data)
-  .catch(err => {
-    throw err;
-  });
-}
+
 export function* wfmHandler(action){
   try{
     console.log('wfm-sagas:',action.data);
     //alert("check")
-    // const getWfmData = () => {
-    //   return axios({ method: 'get', url: 'http://localhost:8000/employees/wfm/'+action.data.username, headers: { 'Authorization': 'Bearer '+action.data.token } })
-    //   .then(response => response.data)
-    //   .catch(err => {
-    //     throw err;
-    //   });
-    // }
-    let  result = yield call(getWfmData(action.data.username,action.data.token))
+    const getWfmData = () => {
+      return axios({ method: 'get', url: 'http://localhost:8000/employees/wfm/'+action.data.username, headers: { 'Authorization': 'Bearer '+action.data.token } })
+      .then(response => response.data)
+      .catch(err => {
+        throw err;
+      });
+    }
+    let  result = yield call(getWfmData)
     let wfmData={
       wfmData:result
     }

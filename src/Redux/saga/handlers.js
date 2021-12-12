@@ -79,6 +79,7 @@ export function* wfmHandler(action){
 }
 
 export function* sendRequestHandler(action){
+
   try{
     console.log('wfm-sagas:',action.data);
      let requestData={
@@ -135,6 +136,74 @@ export function* sendRequestHandler(action){
     console.log(result1)
     console.log("result1 chekc")
     yield put({type:"LOAD_EMPLOYEE",data: result1})
+   // yield call()
+  }
+  catch(e){
+      yield put({type:"FAILURE"})
+  }
+}
+
+
+export function* acceptRequestHandler(action){
+  try{
+    console.log('wfm-sagas:',action.data);
+    //  let requestData={
+    //     employee_id:action.data.employee_id,
+    //     status:action.data.requestStatus
+    //   }
+      
+      //console.log(requestData)
+      console.log(action.data.token)
+      console.log("tojen check")
+    //alert("check")
+    console.log(action.data);
+    console.log("expected hitt of manager pop up")
+    const sendRequest = () => {
+      return axios({ method: 'post', url: 'http://localhost:8000/employees/softlockstatus',
+      data:{
+        employee_id:action.data.employee_id,
+        status:action.data.status
+      },
+        headers: { 'Authorization': 'Bearer '+action.data.token }
+        })
+      //.then(response => response.data)
+      .then(response=>
+        {    
+            console.log("check result react") 
+            console.log(response.data)       
+        })
+      .catch(err => {
+        throw err;
+      });
+    }
+ 
+    console.log("post requet")
+    let  result = yield call(sendRequest)
+    
+    console.log(result)
+    console.log("send request call")
+    //alert("check result")
+    let sendRequestResponse={
+      message:result
+    }
+    console.log(result)
+    //alert("test wfm result")
+    yield put({type:"ACCEPT_SOFTLOCKREQUEST_ACTION",data: sendRequestResponse})
+    const getWfmData = () => {
+      return axios({ method: 'get', url: 'http://localhost:8000/employees/wfm/'+action.data.username, headers: { 'Authorization': 'Bearer '+action.data.token } })
+      .then(response => response.data)
+      .catch(err => {
+        throw err;
+      });
+    }
+    let  result1 = yield call(getWfmData)
+    console.log(result1)
+    console.log("result1 chekc")
+    alert("hit")
+    let wfmData={
+      wfmData:result1
+    }
+    yield put({type:"LOAD_WFM",data: wfmData})
    // yield call()
   }
   catch(e){

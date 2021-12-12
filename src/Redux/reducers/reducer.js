@@ -51,7 +51,12 @@ export const wfmReducer=(state={wfmData:[]},action)=>{
                 ...state,
                 wfmData:action.data.wfmData
             };
-       
+        case "SEND_SOFTLOCKREQUEST_ACTION":
+            return{
+                    ...state
+                    // ,
+                    // showRequestModal:false
+                }
         default:
                  return state;
     }

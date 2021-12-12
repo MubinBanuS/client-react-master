@@ -20,6 +20,15 @@ export default connect(
             getWfmData:(userData)=>{
                 console.log('called')
                 return {type:"WFM_ACTION",data:userData}
+            },
+            acceptRequest:(requestInfo)=>{
+                // let sendRequestData={
+                //     employee_id:requestData.employee_id,
+                //     username:requestData
+                //     requestmessage:requestData.requestmessage
+                // }
+                console.log('called')
+                return {type:"ACCEPT_REQUEST_ACTION",data:requestInfo}
             }
         },dispatch)
     }

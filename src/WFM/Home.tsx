@@ -7,7 +7,7 @@ interface PageState {
     skip: number;
     take: number;
 }
-const initialDataState: PageState = { skip: 0, take: 10 };
+const initialDataState: PageState = { skip: 0, take: 3 };
 type WfmInfo = {
     EmployeeId: number;
     Manager: string;

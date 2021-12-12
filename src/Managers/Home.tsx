@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
 import { Grid, GridColumn, GridPageChangeEvent, GridCellProps } from "@progress/kendo-react-grid";
 import { Modal, Button } from "react-bootstrap";
+import { styleSkill } from "./common";
 
 interface PageState {
     skip: number;
     take: number;
 }
 
-const initialDataState: PageState = { skip: 0, take: 10 };
+const initialDataState: PageState = { skip: 0, take: 3 };
 const ManagerHome = ({ userData, employeeData,showRequestModal,getEmployee ,sendRequest}: any) => {
     const [page, setPage] = useState<PageState>(initialDataState);
     const [showModal, setShow] = useState(false);
@@ -32,6 +33,38 @@ const ManagerHome = ({ userData, employeeData,showRequestModal,getEmployee ,send
         <td><button className='customEdit RequestLockButton' type="button" onClick={(Id) => handleShow(props.dataItem.EmployeeId)}>
             <span className="fa fa-lock mr-2"></span>Request Lock</button></td>
     );
+    const styleSkillCell = (props: GridCellProps) => {
+        return styleSkill(props.dataItem.Skills)
+        // let skilldata=splitString(props.dataItem.Skills)
+        // console.log("skilldata")
+        // console.log(skilldata)
+        // let skill="ans"
+        // let btncomponent=skilldata.map((skill:any)=>{
+        //     <button className="btn btn-default btn-sm">
+        //     {skill}
+        //   </button>
+        // })
+        // return ({btncomponent}
+        //     //skilldata.map((skill:any)=>{
+        //         <button className="btn btn-default btn-sm">
+        //         {skill}
+        //       </button>
+        //     //})
+         
+        //);
+      };
+    // const StyleSkills = (props: GridCellProps | any) => (
+    //     {props.dataItem.EmployeeId}
+    //     //alert(props.dataItem.Skills)
+    //     //{splitString(props.dataItem.Skills)}
+    //     // <td><button className='customEdit RequestLockButton' type="button" onClick={(Id) => handleShow(props.dataItem.EmployeeId)}>
+    //     //     <span className="fa fa-lock mr-2"></span>Request Lock</button></td>
+    // );
+    // const styleSkills =(props:GridCellProps | any)=>{
+    //     // console.log("style grid")
+    //     // console.log(props)
+    //     <h4>{props.dataItem.EmployeeId}</h4>
+    // };
     const sendSoftlockRequest=()=>{
        if(RequestMessage.length>10){
 //getEmployee(userData) //to be uncommented
@@ -84,10 +117,10 @@ setRequestMessageValidation("")
             >
                 <GridColumn field="EmployeeId" title="Employee Id" width="100px" />
                 <GridColumn field="Name" title="Name" width="250px" />
-                <GridColumn field="Skills" title="Skills" width="400px" />
+                <GridColumn field="Skills" title="Skills" /*cell={styleSkill}*/ cell={(row: any) => { return styleSkillCell(row) }}/*cell={(row: any) => { return StyleSkills(row) }}*/ width="400px" />
                 <GridColumn field="Experience" title="Experience" width="150px" />
                 <GridColumn field="Manager" title="Manager" width="150px" />
-                <GridColumn field="Request Lock" title="" cell={(row: any) => { return MyCustomCell(row) }} width="232px" />
+                <GridColumn field="Request Lock" title="" cell={(row: any) => { return MyCustomCell(row) }} width="270px" />
             </Grid>
             <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header>

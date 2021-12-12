@@ -199,7 +199,7 @@ export function* acceptRequestHandler(action){
     let  result1 = yield call(getWfmData)
     console.log(result1)
     console.log("result1 chekc")
-    alert("hit")
+    //alert("hit")
     let wfmData={
       wfmData:result1
     }

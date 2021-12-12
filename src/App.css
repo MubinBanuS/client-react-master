@@ -126,10 +126,11 @@ background-color: #586d99;
   padding: 0 10px;
 }
 .k-grid .k-pager-numbers .k-link.k-state-selected {
-color: #656565;
+color: #656565 !important;
 background-color:#fff;
 min-width: 20px;
 height: 20px;
+margin-top:5px;
 }
 .k-grid tbody tr:hover,.k-grid tr.k-alt {
   background-color:#fff !important;
@@ -141,4 +142,21 @@ height: 20px;
 .k-grid-content {
   border: 1px solid #ccc !important;
   overflow-y: auto !important;
+}
+.btn-default{
+  padding:3px 10px !important;
+  background-color: lightgrey !important;
+  color:darkblue !important;
+  border: 1px solid darkblue !important;
+  border-radius: 0px !important;
+  margin: 10px !important;
+}
+.k-grid td.skillColumnStyle:last-child {
+  border-right: 1px solid #ccc !important;
+}
+.k-grid td:last-child {
+  border-right:none  !important;
+}
+.k-pager-numbers .k-link {
+  color: #fff !important;
 }

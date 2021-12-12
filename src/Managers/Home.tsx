@@ -7,17 +7,15 @@ interface PageState {
     skip: number;
     take: number;
 }
-
 const initialDataState: PageState = { skip: 0, take: 3 };
-const ManagerHome = ({ userData, employeeData,showRequestModal,getEmployee ,sendRequest}: any) => {
+const ManagerHome = ({ userData, employeeData, showRequestModal, getEmployee, sendRequest }: any) => {
     const [page, setPage] = useState<PageState>(initialDataState);
     const [showModal, setShow] = useState(false);
     const [EmployeeId, setEmployeeId] = useState(0);
-    const [RequestMessage,setRequestMessage]=useState("")
-    const [requestMessageValidation,setRequestMessageValidation]=useState("")
+    const [RequestMessage, setRequestMessage] = useState("")
+    const [requestMessageValidation, setRequestMessageValidation] = useState("")
     useEffect(() => {
-       
-        getEmployee(userData)       
+        getEmployee(userData)
     }, [])
 
     const handleClose = () => setShow(false);
@@ -35,74 +33,24 @@ const ManagerHome = ({ userData, employeeData,showRequestModal,getEmployee ,send
     );
     const styleSkillCell = (props: GridCellProps) => {
         return styleSkill(props.dataItem.Skills)
-        // let skilldata=splitString(props.dataItem.Skills)
-        // console.log("skilldata")
-        // console.log(skilldata)
-        // let skill="ans"
-        // let btncomponent=skilldata.map((skill:any)=>{
-        //     <button className="btn btn-default btn-sm">
-        //     {skill}
-        //   </button>
-        // })
-        // return ({btncomponent}
-        //     //skilldata.map((skill:any)=>{
-        //         <button className="btn btn-default btn-sm">
-        //         {skill}
-        //       </button>
-        //     //})
-         
-        //);
-      };
-    // const StyleSkills = (props: GridCellProps | any) => (
-    //     {props.dataItem.EmployeeId}
-    //     //alert(props.dataItem.Skills)
-    //     //{splitString(props.dataItem.Skills)}
-    //     // <td><button className='customEdit RequestLockButton' type="button" onClick={(Id) => handleShow(props.dataItem.EmployeeId)}>
-    //     //     <span className="fa fa-lock mr-2"></span>Request Lock</button></td>
-    // );
-    // const styleSkills =(props:GridCellProps | any)=>{
-    //     // console.log("style grid")
-    //     // console.log(props)
-    //     <h4>{props.dataItem.EmployeeId}</h4>
-    // };
-    const sendSoftlockRequest=()=>{
-       if(RequestMessage.length>10){
-//getEmployee(userData) //to be uncommented
-let requestData={
-    employee_id:EmployeeId,
-    username:userData.username,
-    requestmessage:RequestMessage,
-    token: userData.token
-    
-}
-sendRequest(requestData)
-setShow(showRequestModal)
-setRequestMessageValidation("")
-       }
-       else{
-           setRequestMessageValidation("Must be atleast 10 characters! ")
-       }
-        
-//        getEmployee(userData) 
-
+    };
+    const sendSoftlockRequest = () => {
+        if (RequestMessage.length > 10) {
+            let requestData = {
+                employee_id: EmployeeId,
+                username: userData.username,
+                requestmessage: RequestMessage,
+                token: userData.token
+            }
+            sendRequest(requestData)
+            setShow(showRequestModal)
+            setRequestMessageValidation("")
+        }
+        else {
+            setRequestMessageValidation("Must be atleast 10 characters! ")
+        }
     }
-//     function limit(element:any)
-// {
-//     var max_chars = 9;
-//   //alert("saf")
-//     // if(element.value.length > max_chars) {
-//     //     element.value = element.value.substr(0, max_chars);
-//     // }
-//     //alert(element.length)
-//     if(element.length < max_chars) {
-//         alert("hit")
-//         element = element.substr(0, max_chars);
-//         alert("reached max chatrs yes")
-//         alert(element)
-//         setRequestMessage(element)
-//     }
-//    //return element
-// }
+
     return (
         <>
             <h4 className="text-center mb-5">Manager Home Screen</h4>
@@ -130,8 +78,8 @@ setRequestMessageValidation("")
                 <Modal.Body>
                     <label className="mb-2">Please confirm the lock request for <span>{EmployeeId}</span></label>
                     <p className="mb-0">Request Message (must be atleast 10 char long)</p>
-                    <textarea /*maxLength={10}*/ className="form-control" rows={3}  onChange={(x:any)=>setRequestMessage(x.target.value)} /*onKeyDown={(x:any)=>limit(x.target.value)} */></textarea>
-                    {requestMessageValidation? <span style={{color:"red"}}>{requestMessageValidation}</span>:'' } 
+                    <textarea className="form-control" rows={3} onChange={(x: any) => setRequestMessage(x.target.value)} ></textarea>
+                    {requestMessageValidation ? <span style={{ color: "red" }}>{requestMessageValidation}</span> : ''}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

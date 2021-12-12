@@ -1,19 +1,19 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Login from '../../Login';
 
 export default connect(
-    (state:any)=>{
+    (state: any) => {
         return {
             token: state.loginData.token,
             usertype: state.loginData.usertype
         }
     },
-    (dispatch)=>{
+    (dispatch) => {
         return bindActionCreators({
-            performLogin:(user:any)=>{
-                return {type: "LOGIN_ACTION",data:user}
+            performLogin: (user: any) => {
+                return { type: "LOGIN_ACTION", data: user }
             }
-        },dispatch)
+        }, dispatch)
     }
 )(Login)

@@ -8,13 +8,14 @@ interface PageState {
 }
 
 const initialDataState: PageState = { skip: 0, take: 10 };
-const ManagerHome = ({ userData, employeeData, getEmployee ,sendRequest}: any) => {
+const ManagerHome = ({ userData, employeeData,showRequestModal,getEmployee ,sendRequest}: any) => {
     const [page, setPage] = useState<PageState>(initialDataState);
     const [showModal, setShow] = useState(false);
     const [EmployeeId, setEmployeeId] = useState(0);
     const [RequestMessage,setRequestMessage]=useState("")
     useEffect(() => {
-        getEmployee(userData)
+       
+        getEmployee(userData)       
     }, [])
 
     const handleClose = () => setShow(false);
@@ -30,6 +31,7 @@ const ManagerHome = ({ userData, employeeData, getEmployee ,sendRequest}: any) =
             <span className="fa fa-lock mr-2"></span>Request Lock</button></td>
     );
     const sendSoftlockRequest=()=>{
+      
         //getEmployee(userData) //to be uncommented
         let requestData={
             employee_id:EmployeeId,
@@ -38,6 +40,7 @@ const ManagerHome = ({ userData, employeeData, getEmployee ,sendRequest}: any) =
             token: userData.token
         }
         sendRequest(requestData)
+        setShow(showRequestModal)
 //        getEmployee(userData) 
 
     }

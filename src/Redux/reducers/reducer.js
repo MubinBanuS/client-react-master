@@ -16,7 +16,7 @@ export const loginReducer=(state={username:"NA",token:"NA",usertype:"NA",message
     }
 }
 
-export const managerReducer=(state={employeeData:[]},action)=>{
+export const managerReducer=(state={employeeData:[],showRequestModal:false},action)=>{
     //alert("hittt123")
     switch(action.type){
         case "LOAD_EMPLOYEE":
@@ -29,8 +29,9 @@ export const managerReducer=(state={employeeData:[]},action)=>{
             };
         case "SEND_SOFTLOCKREQUEST_ACTION":
             return{
-                    ...state,
-                    message:action.data.message
+                    ...state
+                    // ,
+                    // showRequestModal:false
                 }
         default:
                  return state;

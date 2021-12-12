@@ -7,11 +7,13 @@ export default connect(
 
         console.log(state.loginData)
         console.log(state.employeeData.employeeData)
+        console.log("to be checks")
         return {
            //username:state.loginData.username,
            //token:state.loginData.token,
            userData:{username:state.loginData.username,token:state.loginData.token},
-           employeeData:state.employeeData.employeeData
+           employeeData:state.employeeData.employeeData,
+           showRequestModal:false
         }
     },
     (dispatch)=>{

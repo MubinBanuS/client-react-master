@@ -13,6 +13,7 @@ const ManagerHome = ({ userData, employeeData,showRequestModal,getEmployee ,send
     const [showModal, setShow] = useState(false);
     const [EmployeeId, setEmployeeId] = useState(0);
     const [RequestMessage,setRequestMessage]=useState("")
+    const [requestMessageValidation,setRequestMessageValidation]=useState("")
     useEffect(() => {
        
         getEmployee(userData)       
@@ -20,6 +21,7 @@ const ManagerHome = ({ userData, employeeData,showRequestModal,getEmployee ,send
 
     const handleClose = () => setShow(false);
     const handleShow = (Id: any) => {
+        setRequestMessageValidation("")
         setEmployeeId(Id);
         setShow(true);
     }
@@ -31,19 +33,43 @@ const ManagerHome = ({ userData, employeeData,showRequestModal,getEmployee ,send
             <span className="fa fa-lock mr-2"></span>Request Lock</button></td>
     );
     const sendSoftlockRequest=()=>{
-      
-        //getEmployee(userData) //to be uncommented
-        let requestData={
-            employee_id:EmployeeId,
-            username:userData.username,
-            requestmessage:RequestMessage,
-            token: userData.token
-        }
-        sendRequest(requestData)
-        setShow(showRequestModal)
+       if(RequestMessage.length>10){
+//getEmployee(userData) //to be uncommented
+let requestData={
+    employee_id:EmployeeId,
+    username:userData.username,
+    requestmessage:RequestMessage,
+    token: userData.token
+    
+}
+sendRequest(requestData)
+setShow(showRequestModal)
+setRequestMessageValidation("")
+       }
+       else{
+           setRequestMessageValidation("Must be atleast 10 characters! ")
+       }
+        
 //        getEmployee(userData) 
 
     }
+//     function limit(element:any)
+// {
+//     var max_chars = 9;
+//   //alert("saf")
+//     // if(element.value.length > max_chars) {
+//     //     element.value = element.value.substr(0, max_chars);
+//     // }
+//     //alert(element.length)
+//     if(element.length < max_chars) {
+//         alert("hit")
+//         element = element.substr(0, max_chars);
+//         alert("reached max chatrs yes")
+//         alert(element)
+//         setRequestMessage(element)
+//     }
+//    //return element
+// }
     return (
         <>
             <h4 className="text-center mb-5">Manager Home Screen</h4>
@@ -71,7 +97,8 @@ const ManagerHome = ({ userData, employeeData,showRequestModal,getEmployee ,send
                 <Modal.Body>
                     <label className="mb-2">Please confirm the lock request for <span>{EmployeeId}</span></label>
                     <p className="mb-0">Request Message (must be atleast 10 char long)</p>
-                    <textarea className="form-control" rows={3}  onChange={(x:any)=>setRequestMessage(x.target.value)}></textarea>
+                    <textarea /*maxLength={10}*/ className="form-control" rows={3}  onChange={(x:any)=>setRequestMessage(x.target.value)} /*onKeyDown={(x:any)=>limit(x.target.value)} */></textarea>
+                    {requestMessageValidation? <span style={{color:"red"}}>{requestMessageValidation}</span>:'' } 
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

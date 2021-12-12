@@ -90,7 +90,7 @@ const WFMHome = ({ userData, wfmData, getWfmData, acceptRequest }: any) => {
                     <label className="mb-0">Status</label>
                     <select name="" id="statusId" value={status}
                         onChange={(x: any) => setstatus(x.target.value)}>
-                        <option value="accepted">Update</option>
+                        <option value="accepted">Accept</option>
                         <option value="rejected">Reject</option>
                     </select>
                 </div>

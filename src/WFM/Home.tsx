@@ -36,7 +36,7 @@ const WFMHome = ({ userData, wfmData, getWfmData, acceptRequest }: any) => {
     };
     const MyCustomCell = (props: GridCellProps | any) => (
         <td><button className='customEdit RequestLockButton' type="button" onClick={() => handleShow(props.dataItem)}>
-            <span className="fa fa-lock mr-2"></span>Request Lock</button></td>
+            <span className="fa fa-lock mr-2"></span>View Details</button></td>
     );
     const acceptSoftlockRequest = () => {
         let requestData = {
@@ -97,10 +97,10 @@ const WFMHome = ({ userData, wfmData, getWfmData, acceptRequest }: any) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                    Close
+                    Cancel
                 </Button>
                 <Button variant="primary" onClick={acceptSoftlockRequest}>
-                    Save Changes
+                    Send Request
                 </Button>
             </Modal.Footer>
         </Modal>

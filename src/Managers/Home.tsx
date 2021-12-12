@@ -72,7 +72,7 @@ const ManagerHome = ({ userData, employeeData, showRequestModal, getEmployee, se
             </Grid>
             <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header>
-                    <Modal.Title>Raise Soft Lock Request</Modal.Title>
+                    <Modal.Title>Soft Lock Request Confirmation</Modal.Title>
                     <span className="fa fa-times" onClick={handleClose}></span>
                 </Modal.Header>
                 <Modal.Body>
@@ -83,10 +83,10 @@ const ManagerHome = ({ userData, employeeData, showRequestModal, getEmployee, se
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Cancel
                     </Button>
                     <Button variant="primary" onClick={sendSoftlockRequest}>
-                        Save Changes
+                        Send Request
                     </Button>
                 </Modal.Footer>
             </Modal>

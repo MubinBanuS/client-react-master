@@ -7,7 +7,6 @@ export default connect(
 
         console.log(state.loginData)
         console.log(state.employeeData.employeeData)
-        //alert("check data")
         return {
            //username:state.loginData.username,
            //token:state.loginData.token,
@@ -20,6 +19,16 @@ export default connect(
             getEmployee:(userData)=>{
                 console.log('called')
                 return {type:"Action",data:userData}
+            }
+            ,
+            sendRequest:(requestData)=>{
+                // let sendRequestData={
+                //     employee_id:requestData.employee_id,
+                //     username:requestData
+                //     requestmessage:requestData.requestmessage
+                // }
+                console.log('called')
+                return {type:"SEND_REQUEST_ACTION",data:requestData}
             }
         },dispatch)
     }

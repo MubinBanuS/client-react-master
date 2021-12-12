@@ -27,6 +27,11 @@ export const managerReducer=(state={employeeData:[]},action)=>{
                 ...state,
                 employeeData:action.data
             };
+        case "SEND_SOFTLOCKREQUEST_ACTION":
+            return{
+                    ...state,
+                    message:action.data.message
+                }
         default:
                  return state;
 }
@@ -43,8 +48,9 @@ export const wfmReducer=(state={wfmData:[]},action)=>{
             //alert("test manage")
             return {
                 ...state,
-                wfmData:action.data
+                wfmData:action.data.wfmData
             };
+       
         default:
                  return state;
     }
